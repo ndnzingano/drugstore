@@ -29,6 +29,8 @@ namespace drugstore
 
             services.AddDbContext<drugstoreContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("drugstoreContext")));
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

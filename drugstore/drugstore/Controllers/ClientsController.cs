@@ -12,35 +12,52 @@ namespace drugstore.Controllers
 {
     public class ClientsController : Controller
     {
+
+        /*Cria uma propriedade referenciando um objeto de conexão com o banco*/
         private readonly drugstoreContext _context;
 
+        /*Injeção de dependência, sõ vai criar uma instância do controller se tiver
+         * um objeto de conexão com o banco como parâmetro*/
         public ClientsController(drugstoreContext context)
         {
             _context = context;
         }
 
-        // GET: Clients
-        public async Task<IActionResult> Index()
+        //A Interface espera uma View como retorno
+        public IActionResult Index()
         {
-            return View(await _context.Client.ToListAsync());
-        }
+            /*estamos pegando os dados da tabela Seller e adicionando a uma lista,
+             * é a mesma coisa que List<Seller> list = new List<Seller>();
+             */
 
-        // GET: Clients/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            // Sem filtro
+            var list = _context.Client.ToList();
+            //var list = _context.Seller.Include(seller => seller.Department).ToList();
+            //Com filtro usando o "Where" vendedores iniciam com A -> case sensitive
+            //var list = _context.Seller.Include(seller => seller.Department).Where(s => s.Name.StartsWith("A")).ToList();
 
-            var client = await _context.Client
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (client == null)
-            {
-                return NotFound();
-            }
+            // Where traz os vendedores que terminam com a letra A
+            // var list = _context.Seller.Include(seller => seller.Department).Where(s => s.Name.EndsWith("a")).ToList();
 
-            return View(client);
+            // Where traz os vendedores que contem "an"
+            //var list = _context.Seller.Include(seller => seller.Department).Where(s => s.Name.Contains("an")).ToList();
+
+
+            //// Where traz os vendedores com o salário superior a 2000
+            //var list = _context.Seller.Include(seller => seller.Department).Where(s => s.Salary > 25000).ToList();
+
+            //// Where traz os vendedores com nome = ao where
+            //var list = _context.Seller.Include(seller => seller.Department).Where(s => s.Name == "Ana").ToList();
+
+            // Retorna ordenado em ordem alfabética e salário
+            //var list = _context.Seller.Include(seller => seller.Department).OrderBy(s => s.Name).ThenBy(s => s.Salary).ToList();
+
+
+            // Retorna ordenado em ordem alfabética e salário
+            //var list = _context.Client.Include(seller => seller.Department).Where(s => s.BirthDate > new DateTime(1998, 4, 20)).OrderBy(s => s.Name).ThenBy(s => s.Salary).ToList();
+
+
+            return View(list);
         }
 
         // GET: Clients/Create
@@ -49,21 +66,23 @@ namespace drugstore.Controllers
             return View();
         }
 
-        // POST: Clients/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Telephone,Address")] Client client)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(client);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(client);
+            //Vamos atribuir o primeiro departamento do banco ao vendedor
+            //seller.Department = _context.Department.FirstOrDefault();
+
+            //Adiciona o vendedor ao banco
+            _context.Client.Add(client);
+
+            //Confirma a persistencia dos dados
+            _context.SaveChanges();
+
+            //Redireciona para o Index
+            return RedirectToAction("Index");
         }
+
 
         // GET: Clients/Edit/5
         public async Task<IActionResult> Edit(int? id)

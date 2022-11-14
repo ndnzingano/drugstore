@@ -27,5 +27,7 @@ namespace drugstore.Models
             Address = address;
             Purchases = purchases;
         }
+
+
     }
 }
