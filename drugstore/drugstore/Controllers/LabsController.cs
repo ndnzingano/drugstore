@@ -147,16 +147,9 @@ namespace drugstore.Controllers
 
             if (lab == null) return NotFound();
 
-            //criar um vendedor com a lista de departamentos
-            var viewModel = new MedicineFormViewModel();
-
-            //adc lab no viewModel
-            viewModel.Lab = lab;
-            //adc o array de deps
-            viewModel.Medicines = _context.Medicine.ToList();
 
             // passa viewmodel (lab + departments)
-            return View(viewModel);
+            return View(lab);
         }
 
         [HttpPost]
