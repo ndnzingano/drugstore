@@ -160,3 +160,4 @@ C:\Users\nadin\Documents\Projetos\FDWD\drugstore\drugstore\drugstore\obj\Debug\n
 C:\Users\nadin\Documents\Projetos\FDWD\drugstore\drugstore\drugstore\obj\Debug\netcoreapp3.1\Razor\Views\Medicines\Delete.cshtml.g.cs
 C:\Users\nadin\Documents\Projetos\FDWD\drugstore\drugstore\drugstore\obj\Debug\netcoreapp3.1\Razor\Views\Labs\Delete.cshtml.g.cs
 C:\Users\nadin\Documents\Projetos\FDWD\drugstore\drugstore\drugstore\obj\Debug\netcoreapp3.1\Razor\Views\Labs\Edit.cshtml.g.cs
+C:\Users\nadin\Documents\Projetos\FDWD\drugstore\drugstore\drugstore\obj\Debug\netcoreapp3.1\Razor\Views\Labs\DeleteError.cshtml.g.cs

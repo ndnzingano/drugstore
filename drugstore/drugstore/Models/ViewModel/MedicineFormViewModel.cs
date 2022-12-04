@@ -10,12 +10,6 @@ namespace drugstore.Models.ViewModels
 
         public Medicine Medicine { get; set; }
 
-
-        //Essa classe é uma view model, que contém uma referência aos objetos/models/entidades que pretendemos usar em uma View
-        public ICollection<Medicine> Medicines { get; set; }
-
-        public Lab Lab { get; set; }
-
         public ICollection<Lab> Labs { get; set; }
 
     }

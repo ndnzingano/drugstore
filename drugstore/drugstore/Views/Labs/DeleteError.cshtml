@@ -1,0 +1,29 @@
+﻿@model IEnumerable<drugstore.Models.Medicine>
+
+@{
+    ViewData["Title"] = "DeleteError";
+}
+
+
+<h4>Cannot delete Lab!</h4>
+
+<div style="margin-top: 20px;">
+    <p class="h5">The following medicines are attributed to this lab:</p>
+
+
+    <table class="table table-borderless">
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

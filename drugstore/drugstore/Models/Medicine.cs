@@ -32,16 +32,15 @@ namespace drugstore.Models
         [Required(ErrorMessage = "Required Field")]
         public int Amount { get; set; }
 
-        [DataType(DataType.Currency)]
-        [DisplayFormat(DataFormatString = "{0: C2}")]
         [Required(ErrorMessage = "Required Field")]
-
+        [RegularExpression(@"^\d+(\.\d{1,2})?$")]
+        [Range(0, 9999999999999999.99)]
         public float Price { get; set; }
 
         [Display(Name = "Lab")]
         [Required(ErrorMessage = "Required Field")]
-
         public int LabId { get; set; }
+
         public Lab Lab { get; set; }
 
         public Medicine()

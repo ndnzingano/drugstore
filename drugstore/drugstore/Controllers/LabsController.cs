@@ -1,5 +1,6 @@
 ﻿using drugstore.Data;
 using drugstore.Models;
+using drugstore.Models.ViewModel;
 using drugstore.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,52 +16,19 @@ namespace drugstore.Controllers
 
         private readonly drugstoreContext _context;
 
-        /*Cria uma propriedade referenciando um objeto de conexão com o banco*/
-        /*Injeção de dependência, sõ vai criar uma instância do controller se tiver
-         * um objeto de conexão com o banco como parâmetro*/
         public LabsController(drugstoreContext context)
         {
             _context = context;
         }
 
-        //A Interface espera uma View como retorno
         public IActionResult Index()
         {
-            /*estamos pegando os dados da tabela Seller e adicionando a uma lista,
-                * é a mesma coisa que List<Seller> list = new List<Seller>();
-                */
-
-            // Sem filtro
+           
             var list = _context.Lab.ToList();
-
-            //Com filtro usando o "Where" vendedores iniciam com A -> case sensitive
-            //var list = _context.Seller.Include(seller => seller.Department).Where(s => s.Name.StartsWith("A")).ToList();
-
-            // Where traz os vendedores que terminam com a letra A
-            // var list = _context.Seller.Include(seller => seller.Department).Where(s => s.Name.EndsWith("a")).ToList();
-
-            // Where traz os vendedores que contem "an"
-            //var list = _context.Seller.Include(seller => seller.Department).Where(s => s.Name.Contains("an")).ToList();
-
-
-            //// Where traz os vendedores com o salário superior a 2000
-            //var list = _context.Seller.Include(seller => seller.Department).Where(s => s.Salary > 25000).ToList();
-
-            //// Where traz os vendedores com nome = ao where
-            //var list = _context.Seller.Include(seller => seller.Department).Where(s => s.Name == "Ana").ToList();
-
-            // Retorna ordenado em ordem alfabética e salário
-            //var list = _context.Seller.Include(seller => seller.Department).OrderBy(s => s.Name).ThenBy(s => s.Salary).ToList();
-
-
-            // Retorna ordenado em ordem alfabética e salário
-            //var list = _context.Lab.Include(seller => lab.Department).Where(s => s.BirthDate > new DateTime(1998, 4, 20)).OrderBy(s => s.Name).ThenBy(s => s.Salary).ToList();
-
 
             return View(list);
         }
 
-        //Será chamada essa action, quando o usuário acessar a rota /Sellers/Create 
         public IActionResult Create()
         {
     
@@ -70,40 +38,15 @@ namespace drugstore.Controllers
         [HttpPost]
         public IActionResult Create(Lab lab)
         {
-            //Vamos atribuir o primeiro departamento do banco ao vendedor
-            //seller.Medicine = _context.Medicine.FirstOrDefault();
-
-            //Adiciona o vendedor ao banco
+      
             _context.Lab.Add(lab);
 
-            //Confirma a persistencia dos dados
             _context.SaveChanges();
 
-            //Redireciona para o Index
             return RedirectToAction("Index");
         }
 
-        public IActionResult Details(int? id)
-        {
-            //verificar se foi informado um ID na rota
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            //Retorna o vendedor com o ID informado na rota
-            //var lab = _context.Lab.FirstOrDefault(lab => lab.Id == id);
-            var lab = _context.Lab.FirstOrDefault(lab => lab.Id == id);
-
-            //Verifica se o vendedor existe
-            if (lab == null)
-            {
-                return NotFound(nameof(lab));
-            }
-
-            return View(lab);
-        }
-
+       
         public IActionResult Delete(int? id)
         {
             if (id == null)
@@ -113,9 +56,16 @@ namespace drugstore.Controllers
 
             var lab = _context.Lab.FirstOrDefault(lab => lab.Id == id);
 
+            var medicineAttributed = _context.Medicine.FirstOrDefault(med => med.LabId == id);
+
             if (lab == null)
             {
                 return NotFound(nameof(lab));
+            }
+
+            if(medicineAttributed != null)
+            {
+                return RedirectToAction("DeleteError", "Labs", new { @id = id });
             }
 
             return View(lab);
@@ -137,18 +87,35 @@ namespace drugstore.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult DeleteError(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new LabFormViewModel();
+            viewModel.Medicines = _context.Medicine.Where(med => med.LabId == id).ToList();
+
+
+            if (viewModel.Medicines == null)
+            {
+                return NotFound(nameof(viewModel.Medicines));
+            }
+
+            return View(viewModel.Medicines);
+        }
+
+
 
         public IActionResult Edit(int? id)
         {
             if (id == null) return NotFound();
 
-            //busca vendedor no db
             Lab lab = _context.Lab.FirstOrDefault(s => s.Id == id);
 
             if (lab == null) return NotFound();
 
-
-            // passa viewmodel (lab + departments)
             return View(lab);
         }
 
