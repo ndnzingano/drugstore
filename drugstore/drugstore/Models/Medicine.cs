@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MathNet.Numerics;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,9 +35,7 @@ namespace drugstore.Models
         public int Amount { get; set; }
 
         [Required(ErrorMessage = "Required Field")]
-        [RegularExpression(@"^\d+(\.\d{1,2})?$")]
-        [Range(0, 9999999999999999.99)]
-        public float Price { get; set; }
+        public double Price { get; set; }
 
         [Display(Name = "Lab")]
         [Required(ErrorMessage = "Required Field")]
@@ -47,7 +47,7 @@ namespace drugstore.Models
         {
         }
 
-        public Medicine(int id, string title, string description, string formula, DateTime expiryDate, int amount, float price)
+        public Medicine(int id, string title, string description, string formula, DateTime expiryDate, int amount, double price)
         {
             Id = id;
             Title = title;

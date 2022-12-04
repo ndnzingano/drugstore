@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "n4jIN+gCZeWHiOAk7Qbr4ZAeSl2eRS5PSvow1/981vLc3G87xVJznjYPZKsScMI72CW3oRSPge0IGUvGsz8imA==",
+  "dgSpecHash": "5B4Qnh3MQcaDw0Awk1Vx1QasrvXfY/xuVJMiwFA5tL2etr2BwtROuYWVXZliLY1T0EwPD1SGrwJKvjj5CdPJ5Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\nadin\\Documents\\Projetos\\FDWD\\drugstore\\drugstore\\drugstore\\drugstore.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\nadin\\.nuget\\packages\\mathnet.numerics\\5.0.0\\mathnet.numerics.5.0.0.nupkg.sha512",
     "C:\\Users\\nadin\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\nadin\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
     "C:\\Users\\nadin\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\3.1.0\\microsoft.aspnetcore.razor.language.3.1.0.nupkg.sha512",

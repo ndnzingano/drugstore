@@ -87,27 +87,6 @@ namespace drugstore.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult Details(int? id)
-        {
-            //verificar se foi informado um ID na rota
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            //Retorna o vendedor com o ID informado na rota
-            //var seller = _context.Seller.FirstOrDefault(seller => seller.Id == id);
-            var medicine = _context.Medicine.Include(medicine => medicine.Lab).FirstOrDefault(medicine => medicine.Id == id);
-
-            //Verifica se o vendedor existe
-            if (medicine == null)
-            {
-                return NotFound(nameof(medicine));
-            }
-
-            return View(medicine);
-        }
-
         public IActionResult Delete(int? id)
         {
             if (id == null)

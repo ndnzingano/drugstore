@@ -19,9 +19,10 @@
                 <span asp-validation-for="Medicine.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Medicine.Description" class="control-label"></label>
-                <input asp-for="Medicine.Description" class="form-control" />
-                <span asp-validation-for="Medicine.Description" class="text-danger"></span>
+                <label asp-for="Medicine.LabId" class="control-label"></label>
+                <select asp-for="Medicine.LabId" class="form-control"
+                        asp-items="@(new SelectList(Model.Labs, "Id", "Name"))">
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Medicine.Formula" class="control-label"></label>
@@ -38,20 +39,20 @@
                 <input asp-for="Medicine.Amount" class="form-control" />
                 <span asp-validation-for="Medicine.Amount" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Medicine.Price" class="control-label"></label>
                 <div class="input-group mb-3">
                     <span class="input-group-text">R$</span>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" asp-for="Medicine.Price" />
-                    <span asp-validation-for="Medicine.Price" class="text-danger"></span>
+                    <input type="text" class="form-control"asp-for="Medicine.Price" />
                 </div>
+                <span asp-validation-for="Medicine.Price" class="text-danger"></span>
+
             </div>
             <div class="form-group">
-                <label asp-for="Medicine.LabId" class="control-label"></label>
-                <select asp-for="Medicine.LabId" class="form-control"
-                        asp-items="@(new SelectList(Model.Labs, "Id", "Name"))">
-                </select>
-                <span asp-validation-for="Medicine.LabId" class="text-danger"></span>
+                <label asp-for="Medicine.Description" class="control-label"></label>
+                <textarea asp-for="Medicine.Description" class="form-control"></textarea>
+                <span asp-validation-for="Medicine.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
